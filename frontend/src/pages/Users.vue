@@ -20,7 +20,6 @@ import {OrderedTable} from "@/components";
 export default {
     computed:{
         users(){
-            //return this.$store.getters.getUsuarios;
             return this.$store.state.usuarios
         }
     },

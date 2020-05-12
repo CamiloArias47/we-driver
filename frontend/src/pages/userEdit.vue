@@ -2,10 +2,7 @@
   <div class="content">
     <div class="md-layout"  v-if="found">
       <div class="md-layout-item md-medium-size-100 md-size-66">
-        <edit-profile-form data-background-color="green" v-bind:user="user"> </edit-profile-form>
-      </div>
-      <div class="md-layout-item md-medium-size-100 md-size-33">
-        <user-card :name="joinName" :cardUserImage="picture"></user-card>
+        <edit-profile-form data-background-color="blue" v-bind:user="user"> </edit-profile-form>
       </div>
     </div>
     <div class="notFound" v-if="!found">
@@ -16,19 +13,18 @@
 </template>
 
 <script>
-import { EditProfileForm, UserCard } from "@/pages";
+import { EditProfileForm} from "@/pages";
 
 export default {
   data(){
     return{
       found:true,
       user:{},
-      picture:""
+      
     }
   },
   components: {
     EditProfileForm,
-    UserCard
   },
   computed:{
     joinName(){
@@ -37,10 +33,10 @@ export default {
   },
   mounted(){
     var userParam = parseInt(this.$route.params.userId)
-    var editUser = this.$store.state.users.find(user => user.id === userParam );
+    var editUser = this.$store.state.usuarios.find(usuario => usuario.id === userParam );
+    
     if(editUser != undefined){
       this.user = editUser
-      this.picture = require("@/assets/img/faces/"+editUser.picture)
     }
     else{
       this.found = false

@@ -67,7 +67,7 @@ const routes = [
       },
       { 
         path: '/user/:userId', 
-        name: 'user',
+        name: 'Usuario',
         component: UserEdit 
       },
       {

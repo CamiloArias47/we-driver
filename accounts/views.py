@@ -5,7 +5,7 @@ from rest_framework.decorators import api_view
 from knox.models import AuthToken
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
-from .serializer import RegisterSerializer, UserSerializer, LoginSerializer
+from .serializer import RegisterSerializer, UserSerializer, LoginSerializer,UpdateUserSerializer
 
 #Listar usuarios
 class ListUsers(generics.ListAPIView): 
@@ -48,7 +48,7 @@ class LoginUser(generics.GenericAPIView):
             }, status= status.HTTP_201_CREATED)
 
 class UpdateUser(generics.RetrieveAPIView,mixins.DestroyModelMixin,mixins.UpdateModelMixin):
-    serializer_class = RegisterSerializer
+    serializer_class = UpdateUserSerializer
 
     def get_object(self):
         pk = self.kwargs["pk"]

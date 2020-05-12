@@ -5,10 +5,14 @@
         <md-table-cell md-label="Email" md-sort-by="id">{{ item.email }}</md-table-cell>
         <md-table-cell md-label="Nombre" md-sort-by="nombre">{{ item.first_name }}</md-table-cell>
         <md-table-cell md-label="Apellidos" md-sort-by="apellido">{{ item.last_name }}</md-table-cell>
-        <md-table-cell md-label="Estado" md-sort-by="estado">{{ item.is_active }}</md-table-cell>
-        <md-table-cell md-label="Administrador" md-sort-by="administrador">{{ item.is_staff }}</md-table-cell>
+        <md-table-cell md-label="Estado" md-sort-by="estado" v-if="item.is_active">Sí</md-table-cell>
+        <md-table-cell md-label="Estado" md-sort-by="estado" v-else>No</md-table-cell>
+        <md-table-cell md-label="Añadir sin autorización" md-sort-by="añadir" v-if="item.is_staff">Sí</md-table-cell>
+        <md-table-cell md-label="Añadir sin autorización" md-sort-by="añadir" v-else >No</md-table-cell>
+        <md-table-cell md-label="Administrador" md-sort-by="administrador" v-if="item.is_superuser">Sí</md-table-cell>
+        <md-table-cell md-label="Administrador" md-sort-by="administrador" v-else>No</md-table-cell>
         <md-table-cell md-label="Acciones">
-          <router-link :to="{ name: 'user', params: { userId: item.id }}" class="md-just-icon md-simple md-primary">
+          <router-link :to="{ name: 'Usuario', params: { userId: item.id }}" class="md-just-icon md-simple md-primary">
             <md-icon>edit</md-icon>                     
             <md-tooltip md-direction="top">Actualizar</md-tooltip>
           </router-link>
