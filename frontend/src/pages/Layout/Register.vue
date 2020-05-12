@@ -37,13 +37,8 @@
           />
           <button>Aceptar</button>
           <p style="font-size: 12px; color: #333;">
-<<<<<<< HEAD
-            Al registrarse usted acepta nuestros <br> 
-            <span>Terminos & Condiciones</span></p> 
-=======
             Acepto <span>Terminos & Condiciones</span>
           </p> 
->>>>>>> master
         </form>
 
         <router-link to="../login" class="link">Cancelar</router-link>
@@ -78,12 +73,14 @@ export default {
   methods: {
     sendForm() {
       if (this.validaType()) {
-        axios.post(this.$store.getters.getRouteAPI + this.$store.getters.registerUser,{
-          first_name :  this.form.firstName,
+        axios.post(this.$store.getters.getRouteAPI + this.$store.getters.getRegisterUser,{
+                first_name :  this.form.firstName,
 	        last_name:    this.form.lastName,
 	        username :    this.form.email,
 	        email :       this.form.email,
-	        password :    this.form.password2
+	        password :    this.form.password2,
+		is_staff : false,
+		is_active: true
         })
         .then(response => {
           console.log(response);

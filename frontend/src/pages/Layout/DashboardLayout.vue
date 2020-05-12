@@ -12,7 +12,7 @@
 
       <sidebar-link  to="/app/dashboard">
         <md-icon>dashboard</md-icon>
-        <p>Dashboard</p>
+        <p>Reportes</p>
       </sidebar-link>
 
       <sidebar-link to="/app/usuarios">
@@ -74,6 +74,12 @@ export default {
       this.$store.dispatch('destroyToken')
       .then(response => 
       this.$router.go('/login'))
+    },
+    setUsers(){
+      this.$store.dispatch('setUsuarios')
+      .then((response) => {
+          console.log(this.$store.getters.getUsuarios);
+      })
     }
   }
 };

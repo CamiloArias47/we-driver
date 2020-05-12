@@ -1,15 +1,23 @@
 
-from rest_framework import status, generics
+from rest_framework import status, generics, mixins
 from rest_framework.response import Response
+from rest_framework.decorators import api_view
 from knox.models import AuthToken
+from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from .serializer import RegisterSerializer, UserSerializer, LoginSerializer
 
 #Listar usuarios
-class ListUser(generics.ListAPIView): 
+class ListUsers(generics.ListAPIView): 
     queryset = User.objects.all()
     serializer_class = UserSerializer  
 
+class ListUser(generics.ListAPIView):
+    serializer_class = UserSerializer
+    def get_queryset(self):
+        pk=self.kwargs['pk']
+        if User.objects.filter(pk=pk).exists():
+            return User.objects.filter(pk=pk)
 #Registrar usuarios
 class RegisterUser(generics.GenericAPIView): 
     
@@ -39,3 +47,17 @@ class LoginUser(generics.GenericAPIView):
              "token": token[1]
             }, status= status.HTTP_201_CREATED)
 
+class UpdateUser(generics.RetrieveAPIView,mixins.DestroyModelMixin,mixins.UpdateModelMixin):
+    serializer_class = RegisterSerializer
+
+    def get_object(self):
+        pk = self.kwargs["pk"]
+        obj = get_object_or_404(User, pk=pk)
+        return obj
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+    

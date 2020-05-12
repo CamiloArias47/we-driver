@@ -1,7 +1,15 @@
-from django.urls import path
-from .views import camaraList,estacionList
+from django.conf.urls import include, url
+from django.contrib import admin
+
+from rest_framework.routers import DefaultRouter
+
+from .views import  camaraViewset,estacionViewset
+
+router = DefaultRouter()
+
+router.register(r'camara',camaraViewset)
+router.register(r'estacion',estacionViewset)
 
 urlpatterns = [
-    path('camara/',camaraList.as_view(), name = 'camara_list'),
-    path('estacion/',estacionList.as_view(), name = 'estacion_list'),
+    url(r'^', include(router.urls)),
 ]
