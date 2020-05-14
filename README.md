@@ -1,4 +1,6 @@
 
+# WE_DRIVE
+
 ![Nuestra Marca](https://raw.githubusercontent.com/CamiloArias47/we-driver/master/frontend/src/assets/img/weDrive.png)
 
 Una aplicación que busca ayudar a los ciudadanos en tiempo real para que no sean sorprendidos
@@ -8,7 +10,9 @@ Y no sólo las cámaras si no, las estaciones de servicio.
 Ven y haz parte de este comunidad desde su inicio en la primera línea de código.
 
 ## Requisistos para utilizar Wedrive
+
 - [Python](https://www.python.org/downloads/) (versión 3.8 o superior)
+
 - [Node JS](https://nodejs.org/en/download/)
 
 ## Instalación 
@@ -16,7 +20,9 @@ Ven y haz parte de este comunidad desde su inicio en la primera línea de códig
 ```sh
 $ pip install -r requirements.txt
 ```
+
 - También, ingresar al directorio frontend e instalar los paquetes de Node JS 
+
 ```sh
 $ cd frontend
 $ npm i
@@ -27,7 +33,9 @@ $ npm i
 ```sh
 $ python manage.py runserver
 ```
+
 - Frontend (dentro de la carpeta frontend):
+
 ```sh
 $ npm run serve
 ```

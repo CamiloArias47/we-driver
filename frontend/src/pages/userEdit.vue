@@ -4,10 +4,13 @@
       <div class="md-layout-item md-medium-size-100 md-size-66">
         <edit-profile-form data-background-color="blue" v-bind:user="user"> </edit-profile-form>
       </div>
+     <!-- <div class="md-layout-item md-medium-size-100 md-size-33">
+        <user-card :name="joinName" :cardUserImage="picture"></user-card>
+      </div> -->
     </div>
     <div class="notFound" v-if="!found">
       <h1>404 Not found</h1>
-      <h3>El Usuario con id {{ this.$route.params.userId }} no ha suido encontrado</h3>
+      <h3>El Usuario con id {{ this.$route.params.userId }} no ha sido encontrado</h3>
     </div>
   </div>
 </template>
@@ -25,6 +28,7 @@ export default {
   },
   components: {
     EditProfileForm,
+    /*UserCard*/
   },
   computed:{
     joinName(){
@@ -33,14 +37,21 @@ export default {
   },
   mounted(){
     var userParam = parseInt(this.$route.params.userId)
-    var editUser = this.$store.state.usuarios.find(usuario => usuario.id === userParam );
     
-    if(editUser != undefined){
-      this.user = editUser
-    }
-    else{
-      this.found = false
-    }
+           this.$store.dispatch('setUsuarios')
+              .then(data => {
+                var editUser = this.$store.state.usuarios.find(user => user.id === userParam );
+                console.log(editUser);
+                
+                if(editUser != undefined){
+                  this.user = editUser
+                  /*this.picture = require("@/assets/img/faces/"+editUser.picture) */
+                }
+                else{
+                  this.found = false
+                }
+              })
+    
   }
 };
 </script>

@@ -9,6 +9,7 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state:{
+        //user:{},
        //Token de acceso
         token : null || localStorage.getItem('token'),
         routeAPI : "http://we-drive-api.herokuapp.com/",
@@ -109,15 +110,6 @@ export const store = new Vuex.Store({
               ]
             ]
         },
-
-        //users
-        users:[
-          {id:1, name: 'Camilo', lastname: 'Arias', mail:"fakemail@deep.com", city : 'Cali', location:'Oeste','picture':'camilo.jpg' },
-          {id:2, name: 'Pedro', lastname: 'Nel', mail:"fakemail@deep.com", city : 'Cali', location:'Oeste','picture':'marc.jpg'  },
-          {id:3, name: 'Martha', lastname: 'Lamos', mail:"fakemail@deep.com", city : 'Cali', location:'Oeste','picture':'marc.jpg' },
-          {id:4, name: 'Carlos', lastname: 'Mariano Ramos', mail:"fakemail@deep.com", city : 'Cali', location:'Oriente','picture':'marc.jpg' },
-          {id:5, name: 'Sebas', lastname: 'Vaugh', mail:"fakemail@deep.com", city : 'Cali', location:'Sur','picture':'marc.jpg' },
-        ],
 
         //camaras (de aca se toman las camaras por aprobar y aprobadas con los geeters)
         cameras:[],
@@ -230,13 +222,19 @@ export const store = new Vuex.Store({
         }
     },
     mutations:{
+        //info del usuario en sesion
+        setUserData(state, user){
+          console.log("[DEUG] setUserData: ", user)
+          state.user = user;
+        },
         setUsuarios(state,usuarios){
           state.usuarios = usuarios;
         },
-        //Update user
-        /* setUsuario(state,id){
-          let user  = state.usuarios.find(u => u.id == id)
-        }, */
+        
+        updateUsuario(state,usuario){
+          state.usuarios = state.usuarios.filter(u => u.id !== usuario.id)
+          state.usuarios.push(usuario.data)
+        }, 
         //Graficos
         setUserLineSmooth(state, lineSm){
             state.usersRegisterdata.options.lineSmooth = lineSm
@@ -286,11 +284,11 @@ export const store = new Vuex.Store({
           console.log("pidiendo Usuarios...")
           context.commit('setUsuarios',usuarios.data)
         },
-       /*  async setUsuario(context,id){
-          let response = await axios.post("https://we-drive-api.herokuapp.com/api/updateUser/"+ id)
-          console.log("Actualizando usuario ...")
-          context.commit('setUsuarios',usuarios.data)
-        }, */
+        async updateUsuario(context,updateData){
+          let updateUser = await axios.put("http://we-drive-api.herokuapp.com/api/updateUser/" + updateData.id, updateData.data);
+          console.log(updateUser.data);
+          context.commit('updateUsuario',updateUser.data)
+        },
        
         async getCameras(context){
           let cameras = await axios.get("https://we-drive-api.herokuapp.com/api/v1.0/camara")
@@ -343,6 +341,8 @@ export const store = new Vuex.Store({
             password: credentials.password
           })
           .then(response => {
+            console.log("[Debug] la respuest adel login:", response.data.user)
+            context.commit('setUserData',response.data.user)
             const token = response.data.token
             localStorage.setItem('token',token)
             resolve(response)
@@ -355,7 +355,8 @@ export const store = new Vuex.Store({
              }
              reject(error)
           })
-        })      
+        })  
+          
         },
 
         destroyToken(context){

@@ -4,18 +4,18 @@
 
     <side-bar>
       <MobileMenu slot="content"></MobileMenu>
-
+      
       <sidebar-link to="/app/maps">
         <md-icon>location_on</md-icon>
         <p>Mapa</p>
       </sidebar-link>
 
       <sidebar-link  to="/app/dashboard">
-        <md-icon>dashboard</md-icon>
+        <md-icon>trending_up</md-icon>
         <p>Reportes</p>
       </sidebar-link>
 
-      <sidebar-link to="/app/usuarios">
+      <sidebar-link to="/app/usuarios" >
         <md-icon>group</md-icon>
         <p>Usuarios</p>
       </sidebar-link>
@@ -25,13 +25,13 @@
         <p>Agregar</p>
       </sidebar-link>
 
-      <sidebar-link  to="/app/admin">
+      <sidebar-link  to="/app/admin" >  
         <md-icon>settings</md-icon>
         <p>Administración</p>
       </sidebar-link>
 
       <sidebar-link to="/login" >
-        <md-icon >library_books</md-icon>
+        <md-icon >logout</md-icon>
         <p @click="logout">Cerrar sesión</p>
       </sidebar-link>
     
@@ -62,6 +62,9 @@ export default {
     return{
      
     }
+  },
+  computed:{
+    user(){ return this.$store.state.user}
   },
   components: {
     TopNavbar,

@@ -66,7 +66,6 @@ class UpdateUserSerializer(serializers.Serializer):
     last_name       = serializers.CharField()
     username        = serializers.CharField()
     email           = serializers.EmailField()
-    password        = serializers.CharField() 
     is_staff        = serializers.BooleanField()
     is_active       = serializers.BooleanField()
     is_superuser    = serializers.BooleanField()
@@ -80,6 +79,5 @@ class UpdateUserSerializer(serializers.Serializer):
         instance.is_staff       = validated_data.get('is_staff', instance.is_staff)
         instance.is_active      = validated_data.get('is_active', instance.is_active)
         instance.is_superuser   = validated_data.get('is_superuser', instance.is_superuser)
-        instance.set_password(validated_data.get("password"))    
-        instance.save()
+        instance.save(update_fields=['username', 'first_name', 'last_name', 'email','is_staff','is_active','is_superuser'])
         return instance                         

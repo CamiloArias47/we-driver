@@ -20,12 +20,7 @@
         </ul>
       </drop-down>
     </li>
-    <li>
-      <a href="#" data-toggle="dropdown" class="dropdown-toggle"
-        ><i class="material-icons">person</i>
-        <p>Profile</p></a
-      >
-    </li>
+
   </ul>
 </template>
 <script>
